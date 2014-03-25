@@ -1,0 +1,98 @@
+// Global - Variables and Mixins.
+@BTN-RADIUS: 60px;
+@BTN-OUTER-BORDER-WIDTH: 2px;
+@BTN-SEPARATION-DISTANCE: 16px;
+@BTN-DIAMETER: @BTN-RADIUS *2;
+
+.et-audio-player {
+  width: @BTN-DIAMETER;
+  height: @BTN-DIAMETER;
+  display: inline-block;
+
+  .mejs-controls {
+    .mejs-playpause-button {
+      position: relative;
+      background-color: #FFF;
+      border: 2px solid #5cb85c;
+
+      -webkit-border-radius: @BTN-RADIUS;
+      -moz-border-radius: @BTN-RADIUS;
+      border-radius: @BTN-RADIUS;
+
+      width: @BTN-DIAMETER;
+      height: @BTN-DIAMETER;
+
+      line-height: @BTN-DIAMETER;
+
+      text-align: center;
+
+      button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #5cb85c;
+        -webkit-border-radius: @BTN-RADIUS - @BTN-OUTER-BORDER-WIDTH;
+        -moz-border-radius: @BTN-RADIUS - @BTN-OUTER-BORDER-WIDTH;
+        border-radius: @BTN-RADIUS - @BTN-OUTER-BORDER-WIDTH;
+        width: @BTN-DIAMETER - @BTN-OUTER-BORDER-WIDTH;
+        height: @BTN-DIAMETER - @BTN-OUTER-BORDER-WIDTH;
+        border: 0;
+        padding: 0;
+        margin: 0 auto;
+        outline: 0;
+      }
+    }
+    .mejs-playpause-button.mejs-play {
+
+      &:after {
+        content: "";
+        width: 0;
+        height: 0;
+        border-style: solid;
+        position: absolute;
+        border-width: 16px 25px;
+        left: @BTN-RADIUS - 9px;
+        top: @BTN-RADIUS - 16px;
+        border-color: transparent transparent transparent #fff;
+      }
+    }
+    .mejs-playpause-button.mejs-pause {
+
+      button {
+        width: @BTN-DIAMETER - @BTN-SEPARATION-DISTANCE;
+        height: @BTN-DIAMETER - @BTN-SEPARATION-DISTANCE;
+
+        top: (@BTN-SEPARATION-DISTANCE / 2) - 2px;
+        left: (@BTN-SEPARATION-DISTANCE /2) - 2px;
+
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+      }
+
+      &:after {
+        content: "";
+        position: absolute;
+        font-size: 28px;
+        width: 28px;
+        height: 28px;
+
+        left: @BTN-RADIUS - 16px;
+        top: @BTN-RADIUS - 16px;
+        background-color: #FFF;
+      }
+    }
+  }
+
+  .mejs-audio {
+    display: inline-block;
+  }
+
+  .mejs-time,
+  .mejs-time-rail,
+  .mejs-volume-button,
+  .mejs-mute,
+  .mejs-horizontal-volume-slider {
+    display: none;
+  }
+}
