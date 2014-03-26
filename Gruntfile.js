@@ -80,7 +80,7 @@ module.exports = function (grunt) {
           paths: ['example/css/{,*/}*.less']
         },
         files: {
-          'example/css/main.css': 'example/css/main.less'
+          'example/css/opt-skin.css': 'example/css/opt-skin.less'
         }
       }
     },
