@@ -75,10 +75,10 @@ module.exports = function (grunt) {
     less: {
       development: {
         options: {
-          paths: ['example/css/{,*/}*.less']
+          paths: ['example/css/**/*.less']
         },
         files: {
-          'example/css/opt-skin.css': 'example/css/opt-skin.less'
+          'example/css/main.css': 'example/css/main.less'
         }
       }
     },
