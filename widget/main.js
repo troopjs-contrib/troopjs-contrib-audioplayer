@@ -1,11 +1,12 @@
 define([
   'module',
+  'jquery',
   'troopjs-browser/component/widget',
   'troopjs-utils/merge',
   'template!./audio-player.html',
   'mediaelement',
   'poly/array'
-], function (module, Widget, merge, playerHtml) {
+], function (module, $, Widget, merge, playerHtml) {
   'use strict';
 
 
@@ -47,10 +48,10 @@ define([
       me.html(player);
       player.mediaelementplayer(
         merge.call(cfg, {
-          success: function ($el) {
+          success: function (el) {
             MEDIA_EVENTS.forEach(function (type) {
-              $el.addEventListener(type, function ($evt) {
-                me.publish('audio/'+ $evt.type);
+              el.addEventListener(type, function ($evt) {
+                me.$element.triggerHandler($evt);
               }, false);
             });
           }
