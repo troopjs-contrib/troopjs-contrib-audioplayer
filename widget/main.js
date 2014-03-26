@@ -1,69 +1,61 @@
 define([
   'module',
-  'lodash',
   'troopjs-browser/component/widget',
+  'troopjs-utils/merge',
   'template!./audio-player.html',
-  'mediaelement'
-], function (module, _, Widget, playerHtml) {
+  'mediaelement',
+  'poly/array'
+], function (module, Widget, merge, playerHtml) {
   'use strict';
 
 
+  // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
+  var MEDIA_EVENTS = [
+    'loadeddata',
+    'progress',
+    'timeupdate',
+    'seeked',
+    'canplay',
+    'play',
+    'playing',
+    'pause',
+    'loadedmetadata',
+    'ended',
+    'volumechange'
+  ];
+
   var DEFAULT_AUDIO_CONFIG = {
     type: 'audio/mp3',
-    preload: 'none'
-  };
-
-  var MEDIAELEMENTPLAYER_DEFAULT_CONFIG = {
+    preload: 'none',
+    // Belows are mediaelement api configurations:
     loop: false,
     alwaysShowHours: false,
     startVolume: 0.8,
     pauseOtherPlayers: true,
     showTimecodeFrameCount: false
-  }
+  };
+
+  var cfg = module.config();
 
   return Widget.extend(function ($element) {
-    this.config = _.extend({}, DEFAULT_AUDIO_CONFIG, $element.data());
+    this.configure({}, DEFAULT_AUDIO_CONFIG, cfg, $element.data());
   }, {
     'sig/start': function () {
       var me = this;
-      var player = $(playerHtml(this.config));
+      var cfg = this.configure();
+      var player = $(playerHtml(cfg));
       me.html(player);
       player.mediaelementplayer(
-        _.extend(
-          MEDIAELEMENTPLAYER_DEFAULT_CONFIG,
-          {
-            success: function (mediaElement, domObject) {
-              mediaElement.addEventListener('play', function (e) {
-                // this.currentTime = 30;
-                me.publish('audio/play');
+        merge.call(cfg, {
+          success: function ($el) {
+            MEDIA_EVENTS.forEach(function (type) {
+              $el.addEventListener(type, function ($evt) {
+                me.publish('audio/'+ $evt.type);
               }, false);
-
-              mediaElement.addEventListener('playing', function (e) {
-                me.publish('audio/playing');
-              }, false);
-
-              mediaElement.addEventListener('pause', function (e) {
-                me.publish('audio/pause');
-              }, false);
-
-              mediaElement.addEventListener('ended', function (e) {
-                me.publish('audio/ended');
-              }, false);
-
-              mediaElement.addEventListener('seeked', function (e) {
-                me.publish('audio/seeked');
-              }, false);
-
-              mediaElement.addEventListener('timeupdate', function (e) {
-                me.publish('audio/play');
-              }, false);
-
-              mediaElement.addEventListener('error', function (e) {
-                // TODO: Log Error here
-                // Warn : Cassandra server is not stable right now
-              }, false);
-            }
-          }));
+            });
+          }
+        })
+      );
     }
   });
 });
