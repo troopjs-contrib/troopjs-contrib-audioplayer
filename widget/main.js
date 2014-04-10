@@ -9,6 +9,7 @@ define([
 ], function (module, $, Widget, merge, playerHtml) {
   'use strict';
 
+  var PLAYER_METHODS = ['play', 'pause', 'load', 'stop'];
 
   // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
   var MEDIA_EVENTS = [
@@ -49,6 +50,13 @@ define([
       player.mediaelementplayer(
         merge.call(cfg, {
           success: function (el) {
+
+            PLAYER_METHODS.forEach(function (method) {
+              me[method] = function () {
+                el[method]();
+              };
+            });
+
             MEDIA_EVENTS.forEach(function (type) {
               el.addEventListener(type, function ($evt) {
                 me.$element.triggerHandler($evt);
