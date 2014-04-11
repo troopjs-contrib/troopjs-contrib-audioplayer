@@ -4,7 +4,7 @@
 @BTN-SEPARATION-DISTANCE: 16px;
 @BTN-DIAMETER: @BTN-RADIUS *2;
 
-.audio-player {
+.opt-audio-player {
   width: @BTN-DIAMETER;
   height: @BTN-DIAMETER;
   display: inline-block;
@@ -16,18 +16,17 @@
       height: @BTN-DIAMETER;
       background-color: #FFF;
       border: 2px solid #5cb85c;
-      border-radius: @BTN-RADIUS;
+      border-radius: @BTN-DIAMETER;
       line-height: @BTN-DIAMETER;
       text-align: center;
 
       button {
         position: absolute;
-        top: 0;
-        left: 0;
+        top: -(@BTN-OUTER-BORDER-WIDTH/2);
+        left: -(@BTN-OUTER-BORDER-WIDTH/2);
         background: #5cb85c;
-        -webkit-border-radius: @BTN-RADIUS - @BTN-OUTER-BORDER-WIDTH;
-        -moz-border-radius: @BTN-RADIUS - @BTN-OUTER-BORDER-WIDTH;
-        border-radius: @BTN-RADIUS - @BTN-OUTER-BORDER-WIDTH;
+
+        border-radius: @BTN-DIAMETER - @BTN-OUTER-BORDER-WIDTH;
         width: @BTN-DIAMETER - @BTN-OUTER-BORDER-WIDTH;
         height: @BTN-DIAMETER - @BTN-OUTER-BORDER-WIDTH;
         border: 0;
