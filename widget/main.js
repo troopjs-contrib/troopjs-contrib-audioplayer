@@ -9,6 +9,19 @@ define([
 ], function (module, $, Widget, merge, playerHtml) {
   'use strict';
 
+  var PLAYER_CONTROL_METHODS = {};
+
+  // Delegate the player control methods of the media element.
+  function delegate(method) {
+    return function () {
+      var $el = this.$media;
+      if ($el) {
+        $el[method].apply($el, arguments);
+      }
+      else
+        throw new Error('mediaelement is not loaded yet.');
+    }
+  }
 
   // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
   var MEDIA_EVENTS = [
@@ -24,6 +37,10 @@ define([
     'ended',
     'volumechange'
   ];
+
+  ['play', 'pause', 'load', 'stop'].forEach(function (method) {
+    PLAYER_CONTROL_METHODS[method] = delegate(method);
+  });
 
   var DEFAULT_AUDIO_CONFIG = {
     type: 'audio/mp3',
@@ -49,6 +66,7 @@ define([
       player.mediaelementplayer(
         merge.call(cfg, {
           success: function (el) {
+            me.$media = el;
             MEDIA_EVENTS.forEach(function (type) {
               el.addEventListener(type, function ($evt) {
                 me.$element.triggerHandler($evt);
@@ -58,5 +76,5 @@ define([
         })
       );
     }
-  });
+  }, PLAYER_CONTROL_METHODS);
 });

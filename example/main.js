@@ -84,7 +84,17 @@ require.config({
       'troopjs-browser/application/widget'
     ], function Bootstrap(jQuery, Application, RecordingService) {
       jQuery(function ready($) {
-        Application($('html'), 'bootstrap').start();
+        Application($('html'), 'bootstrap').start().then(function () {
+          $('.audio-player').woven().spread(function (player1) {
+            player1 = player1[0];
+            setTimeout(function () {
+              player1.play();
+              setTimeout(function () {
+                player1.stop();
+              }, 5000);
+            }, 2000);
+          })
+        });
       });
     });
   }
