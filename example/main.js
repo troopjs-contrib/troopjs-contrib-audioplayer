@@ -85,15 +85,23 @@ require.config({
     ], function Bootstrap(jQuery, Application, RecordingService) {
       jQuery(function ready($) {
         Application($('html'), 'bootstrap').start().then(function () {
-          $('.audio-player').woven().spread(function (player1) {
+          $('.audio-player').woven().spread(function (player1, player2) {
             player1 = player1[0];
+            player1.load();
+            player1.play();
             setTimeout(function () {
-              player1.play();
-              setTimeout(function () {
-                player1.stop();
-              }, 5000);
-            }, 2000);
-          })
+              player1.stop();
+            }, 5000);
+
+            setTimeout(function(){
+              player2 = player2[0];
+              player2.pause();
+              player2.setSrc('http://10.43.224.10:8085/media?id=ab44c379-84c7-48c9-9a3f-e157631268bb');
+              player2.load();
+              player2.play();
+
+            }, 6000);
+          });
         });
       });
     });

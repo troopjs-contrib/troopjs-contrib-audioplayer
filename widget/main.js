@@ -38,7 +38,7 @@ define([
     'volumechange'
   ];
 
-  ['play', 'pause', 'load', 'stop'].forEach(function (method) {
+  ['play', 'pause', 'load', 'stop', 'setSrc'].forEach(function (method) {
     PLAYER_CONTROL_METHODS[method] = delegate(method);
   });
 
