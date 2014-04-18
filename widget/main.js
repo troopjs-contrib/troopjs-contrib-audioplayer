@@ -68,8 +68,8 @@ define([
           success: function (el) {
             me.$media = el;
             MEDIA_EVENTS.forEach(function (type) {
-              el.addEventListener(type, function ($evt) {
-                me.$element.triggerHandler($evt);
+              el.addEventListener(type, function () {
+                me.$element.triggerHandler(type);
               }, false);
             });
           }
