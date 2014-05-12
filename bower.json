@@ -1,6 +1,6 @@
 {
   "name": "troopjs-audio-player",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "ignore": [
     "**/.*",
     "node_modules"
@@ -9,12 +9,11 @@
     "troopjs-core": "~2.1.0",
     "troopjs-browser": "~2.1.0",
     "troopjs-requirejs": "~2.1.0",
-    "mediaelement": "~2.13.1",
+    "mediaelement": "~2.13.2",
     "lodash": "~2",
     "jquery": "~1",
     "mu-template": "~1",
-    "requirejs-text": "~2",
-    "mediaelement": "~2.13.2"
+    "requirejs-text": "~2"
   },
   "devDependencies": {
     "less": "~1.6.1",
