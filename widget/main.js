@@ -39,7 +39,8 @@ define([
   ];
 
   ['play', 'pause', 'load', 'stop', 'setSrc'].forEach(function (method) {
-    PLAYER_CONTROL_METHODS[method] = delegate(method);
+    var name = method === 'stop' ? 'stopPlay' : method;
+    PLAYER_CONTROL_METHODS[name] = delegate(method);
   });
 
   var DEFAULT_AUDIO_CONFIG = {
