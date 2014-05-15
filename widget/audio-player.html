@@ -1,3 +1,3 @@
 <audio type="<%= data.type %>"
        preload="<%= data.preload %>"
-       src="<%= data.src %>"></audio>
+       <%if(data.src){%>src="<%= data.src %>"<%}%>></audio>
